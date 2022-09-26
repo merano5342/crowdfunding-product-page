@@ -1,0 +1,16 @@
+*.sketch
+*.fig
+
+*.xd
+
+.DS_Store
+.prettierignore
+.eslintrc.js
+node_modules
+origin-index.html
+
+style-guide.md
+README-template.md
+README.md
+
+design
