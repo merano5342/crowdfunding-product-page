@@ -1,23 +1,27 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import style from '../css/style.module.scss';
 
 import { ReactComponent as Logo } from '../images/logo.svg'
 import { ReactComponent as Hamburger } from '../images/icon-hamburger.svg';
 
 const Nav = () => {
+  const [activeHamburger, setActiveHamburger] = useState(false)
+
   return (
     <div className={style.nav}>
-      <Logo className={style.logoIcon} />
-      <Hamburger className={style.navItemsClosed} />
-      <div className={style.navItemsOpen}>
+      <Logo className={style.logoIcon} href="" />
+      <Hamburger
+        className={style.navItemsClosed}
+        onClick={() => setActiveHamburger((pre) => !pre)} />
+      <div className={style.navItemsOpen} data-active={activeHamburger}>
         <div className={style.navItem}>
-          About
+          <a href="">About</a>
         </div>
         <div className={style.navItem}>
-          Discover
+          <a href="">Discover</a>
         </div>
         <div className={style.navItem}>
-          Get Started
+          <a href="">Get Started</a>
         </div>
       </div>
     </div>

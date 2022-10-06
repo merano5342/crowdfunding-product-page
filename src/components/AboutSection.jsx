@@ -3,7 +3,12 @@ import { memo } from 'react'
 import style from '../css/style.module.scss';
 
 
-const AboutSection = () => {
+const AboutSection = (props) => {
+  const { setOpenModal, setSelect } = props
+  const atClick = (id) => {
+    setOpenModal(true)
+    setSelect(id)
+  }
   return (
     <section className={style.aboutSection}>
       <div className={style.aboutText}>
@@ -13,7 +18,6 @@ const AboutSection = () => {
           your posture and make you more comfortable while at work, helping you stay focused on the task at hand.
           <br />
           <br />
-
           Featuring artisan craftsmanship, the simplicity of design creates extra desk space below your computer
           to allow notepads, pens, and USB sticks to be stored under the stand.</p>
       </div>
@@ -33,7 +37,7 @@ const AboutSection = () => {
             <h1>101</h1>
             <p>left</p>
           </div>
-          <button className={style.selectBtn} data-active={true}>
+          <button className={style.selectBtn} data-active={true} onClick={() => atClick("Bamboo")} >
             Select Reward
           </button>
         </div>
@@ -53,7 +57,7 @@ const AboutSection = () => {
             <h1>64</h1>
             <p>left</p>
           </div>
-          <button className={style.selectBtn} data-active={true}>
+          <button className={style.selectBtn} data-active={true} onClick={() => atClick("BlackEdition")}>
             Select Reward
           </button>
         </div>
@@ -75,7 +79,7 @@ const AboutSection = () => {
             <h1>0</h1>
             <p>left</p>
           </div>
-          <button className={style.selectBtn} data-active='false'>
+          <button className={style.selectBtn} data-active='false' >
             Out of Stock
           </button>
         </div>

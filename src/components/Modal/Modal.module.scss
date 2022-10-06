@@ -1,0 +1,158 @@
+@import '../../css/style.module.scss';
+
+
+
+
+
+.modalWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  .modal {
+    position: relative;
+    background-color: var(--white);
+    max-width: 600px;
+
+
+    border-radius: 10px;
+    padding: 40px;
+    margin: 160px auto;
+
+    z-index: 10000;
+    box-shadow: 0 0 3rem rgba(0, 0, 0, 0.5);
+
+    .closeBtn {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      cursor: pointer;
+    }
+
+    .modalBox {
+      margin-top: 20px;
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px var(--light-gray) solid;
+
+      &[data-active="true"] {
+        box-shadow: 0 0 0 3px var(--moderate-cyan);
+        border: none;
+      }
+
+
+      .top {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        h3 {
+          margin: 0;
+        }
+
+        .greenText {
+          margin-top: 16px;
+        }
+      }
+
+      input[type="radio"] {
+        cursor: pointer;
+        height: 26px;
+        width: 26px;
+        margin-right: 26px;
+        appearance: none;
+        -webkit-appearance: none;
+        border-radius: 50%;
+        border: 3px solid #FFF;
+        box-shadow: 0 0 0 2px var(--light-gray);
+
+        transition: background-color 0.2s ease;
+
+        &:checked {
+          box-shadow: 0 0 0 2px var(--light-gray);
+          background-color: var(--moderate-cyan);
+          border-width: 0.3rem;
+        }
+
+
+      }
+
+
+
+      .left {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        h1 {
+          margin-right: 10px;
+          font-size: 24px;
+        }
+      }
+
+      &:hover {
+        h3 {
+          color: var(--moderate-cyan);
+        }
+
+        input[type="radio"] {
+          box-shadow: 0 0 0 2px var(--moderate-cyan);
+        }
+      }
+
+      .pledge {
+        border-top: var(--light-gray) 1px solid;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .amount {
+          display: flex;
+          position: relative;
+
+          input[type="number"] {
+            border: var(--light-gray) 1px solid;
+            border-radius: 100px;
+            width: 100%;
+            padding: 0 20px 0 40px;
+            color: var(--black);
+
+            font-size: 20px;
+            font-weight: 700;
+            margin: 16px 6px;
+
+            cursor: pointer;
+
+            box-sizing: border-box;
+            border: 1px solid var(--light-gray);
+            transition: border-color 0.25s ease;
+
+            outline: none;
+          }
+
+          input[type="number"]:focus {
+            border: 1px solid var(--very-dark-gray);
+
+          }
+
+          &:before {
+            position: absolute;
+            top: 34px;
+            left: 26px;
+            content: "$";
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--light-gray);
+          }
+        }
+
+
+      }
+
+      .pledge[data-active="false"] {
+        display: none;
+      }
+    }
+  }
+}

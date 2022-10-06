@@ -18,12 +18,24 @@
   --very-light-gray: rgb(241, 240, 240);
   --light-gray: hsl(0, 0%, 68%);
   --dark-gray: hsl(0, 0%, 48%);
-  --very-dark-gray: hsl(0, 0%, 12%);
+  --very-dark-gray: hsl(0, 0%, 21%);
 }
 
+body,
+.wrapper {
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  top: 0;
+}
+
+
 body {
+  top: -50px;
   font-family: var(--font-family);
   background-color: var(--very-light-gray);
+  // height: 100vh;
+  width: 100%;
 
   h1,
   h2,
@@ -49,6 +61,32 @@ body {
     line-height: 160%;
     margin-bottom: 12px;
   }
+
+  a {
+    color: var(--black);
+    // font: 500 20px 'Commissioner',
+    // sans-serif;
+    text-decoration: none;
+  }
+
+  .greenText {
+    color: var(--moderate-cyan);
+    font-weight: 400;
+    line-height: 90%;
+    margin-bottom: 30px;
+  }
+}
+
+.background {
+  z-index: 300;
+  background-color: black;
+  opacity: 60%;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  transition: opacity 0.5s ease;
 }
 
 :global {
@@ -59,15 +97,20 @@ body {
       background-color: var(--dark-gray);
     }
   }
+
 }
 
+
+
 .wrapper {
-  width: 100%;
+  top: 0;
   margin-bottom: 300px;
+  position: relative;
+  height: 100%;
 
   .backgroundImg {
     position: absolute;
-    top: 0;
+    top: -50px;
     background: url('../images/image-hero-mobile.jpg') no-repeat;
     background-position: center top;
     background-size: cover;
@@ -84,11 +127,35 @@ body {
     margin: 40px;
 
     .logoIcon {
-      height: 500px;
+      cursor: pointer;
     }
 
     .navItemsOpen {
-      display: none;
+      position: fixed;
+      top: 60px;
+      right: 60px;
+      background-color: var(--white);
+      border-radius: 10px;
+
+      &[data-active=false] {
+        display: none;
+      }
+
+
+      .navItem {
+        padding: 20px;
+        border-bottom: 1px solid var(--very-light-gray);
+        width: 120px;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+      }
+    }
+
+    .navItemsClosed {
+      cursor: pointer;
     }
   }
 
@@ -97,6 +164,8 @@ body {
     top: 200px;
   }
 
+
+
   section {
 
     background-color: var(--white);
@@ -104,27 +173,40 @@ body {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.02);
+  }
 
-    button {
-      border: none;
-      border-radius: 100px;
-      padding: 20px 40px;
-      color: var(--white);
-      font-weight: 700;
-      background-color: var(--moderate-cyan);
+  button {
+    border: none;
+    border-radius: 100px;
+    padding: 20px 40px;
+    color: var(--white);
+    font-weight: 700;
+    background-color: var(--moderate-cyan);
+    transition: background-color 0.2s ease;
 
-      margin: 16px 6px;
-      cursor: pointer;
+    margin: 16px 6px;
+    cursor: pointer;
 
-      &[data-active="false"] {
-        background-color: var(--dark-gray);
-      }
+    &[data-active="false"] {
+      background-color: var(--dark-gray);
+    }
 
-      &:hover {
-        background-color: var(--dark-cyan);
-      }
+    &:hover {
+      background-color: var(--dark-cyan);
     }
   }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+
 
   .briefSection {
     position: relative;
@@ -143,25 +225,69 @@ body {
     .btnBox {
       display: flex;
       justify-content: center;
-
     }
 
     .btnBookmark {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       color: var(--light-gray);
-      background-color: var(--very-dark-gray);
-      background: url(../images/icon-bookmark.svg) no-repeat;
-      // border-radius: 0;
-      // width: auto;
-      // padding: 20px 40px;
+      background-color: var(--very-light-gray);
+      margin: 16px 6px;
+      border-radius: 100px;
 
-      &:hover {
-        background-color: var(--dark-gray);
+      circle {
+        fill: var(--black);
+        transition: fill 0.25s ease;
       }
+
+      path {
+        fill: var(--white);
+        transition: fill 0.25s ease;
+      }
+
 
       p {
         display: none;
+        padding-right: 10px;
+        margin: 0 auto;
+        margin-bottom: 0;
+        transition: color 0.25s ease;
       }
+
+      &:hover {
+        circle {
+          fill: var(--very-dark-gray);
+        }
+
+        p {
+          color: var(--very-dark-gray);
+        }
+      }
+
+      &[data-active="true"] {
+        circle {
+          fill: var(--moderate-cyan);
+        }
+
+        p {
+          color: var(--moderate-cyan);
+        }
+
+        &:hover {
+          circle {
+            fill: var(--dark-cyan);
+          }
+
+          p {
+            color: var(--dark-cyan);
+          }
+        }
+      }
+
     }
+
+
   }
 
   .numSection {
@@ -250,12 +376,7 @@ body {
       border-radius: 10px;
       border: 1px var(--light-gray) solid;
 
-      .greenText {
-        color: var(--moderate-cyan);
-        font-weight: 400;
-        line-height: 90%;
-        margin-bottom: 30px;
-      }
+
 
       .left {
         margin-top: 20px;
@@ -292,16 +413,41 @@ body {
       }
 
       .nav {
-        .navItemsOpen {
+        .navItemsOpen[data-active=false] {
+          position: static;
           display: flex;
-          color: var(--white);
-          min-width: 260px;
+          min-width: 200px;
           justify-content: space-between;
+          background-color: transparent;
+
+          .navItem {
+            border: none;
+            padding: 0;
+
+            a {
+              color: var(--white);
+            }
+          }
         }
 
         .navItemsClosed {
           display: none;
         }
+
+
+      }
+
+      .briefSection {
+        .btnBookmark {
+          width: 180px;
+
+          p {
+            display: inline;
+            font-weight: 500;
+          }
+        }
+
+
       }
 
       .numSection {
