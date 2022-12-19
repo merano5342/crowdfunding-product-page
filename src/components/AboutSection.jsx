@@ -4,11 +4,19 @@ import style from '../css/style.module.scss';
 
 
 const AboutSection = (props) => {
-  const { setOpenModal, setSelect } = props
-  const atClick = (id) => {
-    setOpenModal(true)
-    setSelect(id)
+  const {
+    state,
+    onOpenModal,
+    onSelectReward } = props
+
+  const { rewards } = state
+
+  const atClick = (idName) => {
+    onOpenModal('selectionModal')
+    onSelectReward(idName)
   }
+
+
   return (
     <section className={style.aboutSection}>
       <div className={style.aboutText}>
@@ -22,7 +30,35 @@ const AboutSection = (props) => {
           to allow notepads, pens, and USB sticks to be stored under the stand.</p>
       </div>
 
-      <div className={style.aboutBox}>
+      {rewards.map((item) => {
+        if (item.id === 1) return
+        return (
+          <div
+            key={item.id}
+            className={style.aboutBox}
+            data-available={!!item.quality}>
+            <div className={style.top}>
+              <h3>{item.title}</h3>
+              {item.minimum ? <h3 className={style.greenText}>Pledge ${item.minimum} or more </h3> : ''}
+            </div>
+            <p> {item.text} </p>
+            <div className={style.bottom}>
+              <div className={style.left}>
+                <h1>{item.quality}</h1>
+                <p>left</p>
+              </div>
+              <button
+                className={style.selectBtn}
+                data-active={!!item.quality}
+                onClick={() => atClick(item.idName)}
+                disabled={!!!item.quality}>
+                {item.quality ? "Select Reward" : "Out of Stock"}
+              </button>
+            </div>
+          </div>)
+      })}
+
+      {/* <div className={style.aboutBox}>
         <div className={style.top}>
           <h3>Bamboo Stand</h3>
           <h3 className={style.greenText}>Pledge $25 or more</h3>
@@ -84,7 +120,7 @@ const AboutSection = (props) => {
           </button>
         </div>
 
-      </div>
+      </div> */}
     </section>
   )
 }

@@ -1,14 +1,22 @@
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import style from '../css/style.module.scss';
 import { ReactComponent as MastercraftLogo } from '../images/logo-mastercraft.svg';
 
 const BriefSection = (props) => {
-  const { setOpenModal, setSelect, bookmarked, setBookmarked } = props
+  const {
+    state,
+    onChangeBookmark,
+    onOpenModal,
+    onSelectReward } = props
+
+
+  const { bookmark } = state
 
   const handleBtn = () => {
-    setSelect('')
-    setOpenModal(true)
+    onSelectReward('')
+    onOpenModal('selectionModal')
   }
+
 
   return (
     <section className={style.briefSection}>
@@ -25,7 +33,7 @@ const BriefSection = (props) => {
           Back this project
         </button>
         <div className={style.btnBookmark}
-          onClick={() => setBookmarked((pre) => !pre)} data-active={bookmarked}>
+          onClick={onChangeBookmark} data-active={bookmark}>
           <svg width="56" height="56">
             <g fill="none" >
               <circle fill="#2F2F2F" cx="28" cy="28" r="28" />
@@ -33,7 +41,7 @@ const BriefSection = (props) => {
             </g>
           </svg>
           <p>
-            {bookmarked ? "Bookmarked" : "Bookmark"}
+            {bookmark ? "Bookmarked" : "Bookmark"}
           </p>
         </div>
       </div>

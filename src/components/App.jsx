@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import style from '../css/style.module.scss';
 import Nav from './Nav'
 import BriefSection from './BriefSection';
@@ -7,44 +7,67 @@ import AboutSection from './AboutSection';
 import Modal from './Modal/index';
 import ThankYouModal from './ThankYouModal'
 
+import useBack from './hooks/useBack'
+import { actionChangeBookmark, actionOpenModal, actionSelectReward } from './hooks/action';
+
 const App = () => {
 
-  const [select, setSelect] = useState('')
-  const [bookmarked, setBookmarked] = useState(false)
+  const [state, dispatch] = useBack()
 
-  const [openModal, setOpenModal] = useState(false);
-  const [openThanks, setOpenThanks] = useState(false)
+  const { openModal } = state
+
+  // const [select, setSelect] = useState('')
 
 
+
+
+  const atChangeBookmark = useCallback(() => {
+    dispatch(actionChangeBookmark())
+  }, [dispatch])
+
+  const atOpenModal = useCallback((modal) => {
+    dispatch(actionOpenModal(modal))
+  }, [dispatch])
+
+  const atSelectReward = useCallback((reward) => {
+    dispatch(actionSelectReward(reward))
+  }, [dispatch])
+
+  // const modalControl = ()=> {
+  //   if  {
+
+  //   }
+  // }
 
   return (
     <div className={style.wrapper}>
-      {openModal && <Modal
-        setOpenModal={setOpenModal}
-        openModal={openModal}
-        select={select}
-        setSelect={setSelect}
-        setOpenThanks={setOpenThanks} />}
-      {openThanks && <ThankYouModal
-        setOpenThanks={setOpenThanks} />}
+      {(openModal === 'selectionModal') && <Modal
+        state={state}
+        onOpenModal={atOpenModal}
+        onSelectReward={atSelectReward}
+      />}
+      {(openModal === 'thanksModal') && <ThankYouModal
+        state={state}
+        onOpenModal={atOpenModal} />}
       <div className={style.backgroundImg} />
       <Nav />
 
       <div className={style.container}>
 
         <BriefSection
-          setOpenModal={setOpenModal}
-          openModal={openModal}
-          setSelect={setSelect}
-          bookmarked={bookmarked}
-          setBookmarked={setBookmarked}
+          state={state}
+          onChangeBookmark={atChangeBookmark}
+          onOpenModal={atOpenModal}
+          onSelectReward={atSelectReward}
+
         />
 
         <NumSection />
 
         <AboutSection
-          setOpenModal={setOpenModal}
-          setSelect={setSelect} />
+          state={state}
+          onOpenModal={atOpenModal}
+          onSelectReward={atSelectReward} />
 
 
       </div>

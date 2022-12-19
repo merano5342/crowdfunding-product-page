@@ -29,6 +29,10 @@
       cursor: pointer;
     }
 
+    .greenText {
+      margin-top: 16px;
+    }
+
     .modalBox {
       margin-top: 20px;
       padding: 30px;
@@ -40,19 +44,14 @@
         border: none;
       }
 
+      &[data-available="false"] {
+        opacity: 40%;
+      }
 
       .top {
         display: flex;
         align-items: center;
         margin-bottom: 20px;
-
-        h3 {
-          margin: 0;
-        }
-
-        .greenText {
-          margin-top: 16px;
-        }
       }
 
       input[type="radio"] {
@@ -65,7 +64,6 @@
         border-radius: 50%;
         border: 3px solid #FFF;
         box-shadow: 0 0 0 2px var(--light-gray);
-
         transition: background-color 0.2s ease;
 
         &:checked {
@@ -73,8 +71,6 @@
           background-color: var(--moderate-cyan);
           border-width: 0.3rem;
         }
-
-
       }
 
 
@@ -91,7 +87,7 @@
       }
 
       &:hover {
-        h3 {
+        .modalBoxTitle {
           color: var(--moderate-cyan);
         }
 
@@ -102,7 +98,7 @@
 
       .pledge {
         border-top: var(--light-gray) 1px solid;
-        padding: 20px 0;
+        padding-top: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -146,8 +142,6 @@
             color: var(--light-gray);
           }
         }
-
-
       }
 
       .pledge[data-active="false"] {
@@ -155,4 +149,51 @@
       }
     }
   }
+}
+
+@media screen and (min-width: 680px) {
+  .modalWrapper {
+    .modal {
+      .modalBox {
+        position: relative;
+
+        .left {
+          position: absolute;
+          right: 30px;
+          top: 30px;
+        }
+
+        .topRight {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+        }
+
+        .modalBoxTitle {
+          margin-right: 20px;
+        }
+
+        .greenText {
+          margin-bottom: 30px;
+        }
+
+        .pledge {
+          flex-direction: row;
+          justify-content: space-between;
+
+          .amount {
+            max-width: 360px;
+
+            input {
+              width: 60%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+
 }

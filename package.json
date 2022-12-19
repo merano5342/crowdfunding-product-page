@@ -5,7 +5,8 @@
   "author": "merano merano5342@gmail.com",
   "scripts": {
     "start": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "lint": "eslint ./**/*.jsx"
   },
   "dependencies": {
     "classnames": "^2.3.1",

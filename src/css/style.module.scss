@@ -73,7 +73,6 @@ body {
     color: var(--moderate-cyan);
     font-weight: 400;
     line-height: 90%;
-    margin-bottom: 30px;
   }
 }
 
@@ -89,16 +88,16 @@ body {
   transition: opacity 0.5s ease;
 }
 
-:global {
-  .disabled {
-    opacity: 40%;
+// :global {
+//   .disabled {
+//     opacity: 40%;
 
-    & button:hover {
-      background-color: var(--dark-gray);
-    }
-  }
+//     & button:hover {
+//       background-color: var(--dark-gray);
+//     }
+//   }
 
-}
+// }
 
 
 
@@ -231,8 +230,8 @@ body {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: var(--light-gray);
-      background-color: var(--very-light-gray);
+
+      background-color: transparent;
       margin: 16px 6px;
       border-radius: 100px;
 
@@ -256,6 +255,8 @@ body {
       }
 
       &:hover {
+        cursor: pointer;
+
         circle {
           fill: var(--very-dark-gray);
         }
@@ -376,8 +377,6 @@ body {
       border-radius: 10px;
       border: 1px var(--light-gray) solid;
 
-
-
       .left {
         margin-top: 20px;
         display: flex;
@@ -385,6 +384,15 @@ body {
 
         h1 {
           margin-right: 10px;
+        }
+      }
+
+      &[data-available=false] {
+        opacity: 40%;
+
+        & button:hover {
+          background-color: var(--dark-gray);
+          cursor: auto;
         }
       }
     }
@@ -440,6 +448,8 @@ body {
       .briefSection {
         .btnBookmark {
           width: 180px;
+          color: var(--light-gray);
+          background-color: var(--very-light-gray);
 
           p {
             display: inline;
