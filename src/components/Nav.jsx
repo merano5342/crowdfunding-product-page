@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import React, { memo, useState } from 'react'
 import style from '../css/style.module.scss';
 
 import { ReactComponent as Logo } from '../images/logo.svg'

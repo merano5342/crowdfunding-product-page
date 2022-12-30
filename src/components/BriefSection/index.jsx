@@ -1,20 +1,22 @@
-import { memo, useEffect } from 'react'
-import style from '../css/style.module.scss';
-import { ReactComponent as MastercraftLogo } from '../images/logo-mastercraft.svg';
+import React, { memo } from 'react'
+import style from '../../css/style.module.scss';
+import { ReactComponent as MastercraftLogo } from '../../images/logo-mastercraft.svg';
+import { useStateContext } from '../hooks/useContext'
 
-const BriefSection = (props) => {
+
+const BriefSection = () => {
   const {
     state,
-    onChangeBookmark,
-    onOpenModal,
-    onSelectReward } = props
+    atChangeBookmark,
+    atOpenModal,
+    atSelectReward } = useStateContext()
 
 
   const { bookmark } = state
 
   const handleBtn = () => {
-    onSelectReward('')
-    onOpenModal('selectionModal')
+    atSelectReward('')
+    atOpenModal('selectionModal')
   }
 
 
@@ -33,7 +35,7 @@ const BriefSection = (props) => {
           Back this project
         </button>
         <div className={style.btnBookmark}
-          onClick={onChangeBookmark} data-active={bookmark}>
+          onClick={atChangeBookmark} data-active={bookmark}>
           <svg width="56" height="56">
             <g fill="none" >
               <circle fill="#2F2F2F" cx="28" cy="28" r="28" />

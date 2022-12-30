@@ -1,18 +1,18 @@
-import { memo, useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 
 import style from './Modal.module.scss'
 import { ReactComponent as Close } from '../../images/icon-close-modal.svg'
 import Background from './Background'
+import { useStateContext } from '../hooks/useContext'
 
 
 
-
-const Modal = (props) => {
+const Modal = () => {
   const {
     state,
-    onOpenModal,
-    onSelectReward
-  } = props
+    atOpenModal,
+    atSelectReward
+  } = useStateContext()
 
   const { openModal, rewards, selectedReward } = state
 
@@ -23,7 +23,7 @@ const Modal = (props) => {
   }
 
   const onClickBtn = () => {
-    onOpenModal('thanksModal')
+    atOpenModal('thanksModal')
   }
 
   const isNumValidNameate = (num) => {
@@ -38,7 +38,7 @@ const Modal = (props) => {
 
   const onClickRadio = (item) => {
     if (item.quality < 1) return
-    onSelectReward(item.idName)
+    atSelectReward(item.idName)
   }
 
   return (
@@ -46,7 +46,7 @@ const Modal = (props) => {
       <div className={style.modalWrapper}>
         <div className={style.modal}>
           <h2>Back this project</h2>
-          <Close className={style.closeBtn} onClick={() => onOpenModal('')} />
+          <Close className={style.closeBtn} onClick={() => atOpenModal('')} />
           <p>
             Want to support us in bringing Mastercraft Bamboo Monitor Riser out in the world?
           </p>
@@ -96,7 +96,6 @@ const Modal = (props) => {
                     <input
                       type="number"
                       placeholder={item.minimum}
-                      // value={ }
                       onChange={e => { }} />
                     <button
                       onClick={onClickBtn}
@@ -111,7 +110,7 @@ const Modal = (props) => {
 
         </div>
       </div>
-      <Background onOpenModal={onOpenModal} />
+      <Background atOpenModal={atOpenModal} />
 
     </>
   )

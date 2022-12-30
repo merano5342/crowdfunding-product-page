@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import React, { memo } from 'react'
 import style from '../../css/style.module.scss'
 
 const Background = (props) => {

@@ -1,13 +1,14 @@
-import { memo, useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import style from './ThankYouModal.module.scss'
 import CompletedIcon from '../../images/icon-check.svg';
 import Background from './Background';
+import { useStateContext } from '../hooks/useContext'
 
-const ThankYouModal = (props) => {
+const ThankYouModal = () => {
   const {
     state,
-    onOpenModal
-  } = props
+    atOpenModal
+  } = useStateContext()
 
   const { openModal } = state
 
@@ -37,9 +38,9 @@ const ThankYouModal = (props) => {
             Your pledge brings us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide.You will get
             an email once our campaign is completed.
           </p>
-          <button onClick={() => onOpenModal('')}>Got it!</button>
+          <button onClick={() => atOpenModal('')}>Got it!</button>
         </div>
-        <Background onOpenModal={onOpenModal} />
+        <Background atOpenModal={atOpenModal} />
       </div>
 
     </>

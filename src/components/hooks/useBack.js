@@ -25,7 +25,7 @@ const initialState = {
       idName: 'BambooStand',
       title: 'Bamboo Stand',
       minimum: 25,
-      quality: 101,
+      quality: 103,
       text: "You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and you’ll be added to a special Backer member list.",
     },
     {
@@ -53,13 +53,13 @@ const initialState = {
 }
 
 export type State = {
-  totalBacked: Number,
-  totalBackers: Number,
-  daysLeft: Number,
+  totalBacked: number,
+  totalBackers: number,
+  daysLeft: number,
 
-  bookmark: Boolean,
+  bookmark: boolean,
   modal: Modal[],
-  userBacked: Number,
+  userBacked: number,
 }
 
 
