@@ -1,9 +1,10 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 import style from './Modal.module.scss'
 import { ReactComponent as Close } from '../../images/icon-close-modal.svg'
 import Background from './Background'
 import { useStateContext } from '../hooks/useContext'
+import { isNumValidate } from '../tools/isNumValidate'
 
 
 
@@ -11,10 +12,14 @@ const Modal = () => {
   const {
     state,
     atOpenModal,
-    atSelectReward
+    atSelectReward,
+    atSuccessBack,
+    atUpdateQuantity
   } = useStateContext()
 
   const { openModal, rewards, selectedReward } = state
+  const [inputValue, setInputValue] = useState('')
+  const [error, setError] = useState('')
 
   const scrollToTarget = (idName) => {
     const target = document.querySelector(idName);
@@ -22,22 +27,36 @@ const Modal = () => {
     setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "center" }), 300);
   }
 
-  const onClickBtn = () => {
-    atOpenModal('thanksModal')
+  const onSendOut = (item) => {
+
+    if (inputValue < item.minimum || inputValue.length < 1) {
+      setError(`please type in $${item.minimum} or more`)
+    }
+    else {
+      atOpenModal('thanksModal')
+      atSuccessBack(inputValue)
+      atUpdateQuantity(item.id)
+    }
   }
 
-  const isNumValidNameate = (num) => {
-    const NUMBER_PATTERN = /^[1-9][0-9]*$/
-    return NUMBER_PATTERN.test(num)
+
+  const inputHandler = (e) => {
+    const input = e.target.value
+    setInputValue(parseInt(input))
   }
+
 
   useEffect(() => {
     if (openModal === false || !selectedReward) return
     scrollToTarget("#" + selectedReward)
-  }, [selectedReward])
+
+    if (!isNumValidate(inputValue) && inputValue.length !== 0) {
+      setError(`please type in validate number`)
+    } else { setError('') }
+  }, [selectedReward, inputValue])
 
   const onClickRadio = (item) => {
-    if (item.quality < 1) return
+    if (item.quantity < 1) return
     atSelectReward(item.idName)
   }
 
@@ -46,7 +65,9 @@ const Modal = () => {
       <div className={style.modalWrapper}>
         <div className={style.modal}>
           <h2>Back this project</h2>
-          <Close className={style.closeBtn} onClick={() => atOpenModal('')} />
+          <Close
+            className={style.closeBtn}
+            onClick={() => atOpenModal('')} />
           <p>
             Want to support us in bringing Mastercraft Bamboo Monitor Riser out in the world?
           </p>
@@ -59,7 +80,7 @@ const Modal = () => {
                 key={item.id}
                 onClick={() => onClickRadio(item)}
                 data-active={item.idName === selectedReward}
-                data-available={!!item.quality}
+                data-available={!!item.quantity}
               >
                 <div className={style.top}>
 
@@ -68,7 +89,7 @@ const Modal = () => {
                     id={item.id}
                     name={item.idName}
                     checked={item.idName === selectedReward}
-                    onChange={e => { }}
+                    onChange={() => onClickRadio(item)}
                   />
                   <div className={style.topRight}>
                     <h3 className={style.modalBoxTitle}>{item.title}</h3>
@@ -80,9 +101,9 @@ const Modal = () => {
                 <p> {item.text} </p>
                 <div className={style.bottom}>
 
-                  {item.quality === "unlimited" ?
+                  {item.quantity === "unlimited" ?
                     "" : (<div className={style.left}>
-                      <h1>{item.quality}</h1>
+                      <h1>{item.quantity}</h1>
                       <p>left</p>
                     </div>)}
 
@@ -91,23 +112,33 @@ const Modal = () => {
                   className={style.pledge}
                   data-active={item.idName === selectedReward}>
                   <p>Enter your pledge</p>
+
                   <div
                     className={style.amount} >
                     <input
                       type="number"
                       placeholder={item.minimum}
-                      onChange={e => { }} />
-                    <button
-                      onClick={onClickBtn}
-                      defaultChecked={false}
-                    >Continue</button>
+                      onChange={(e) => inputHandler(e)}
+                      value={inputValue}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          onSendOut(item)
+                        }
+                      }}
+                      data-error={!!error} />
+                    {error && <p className={style.error}>{error}</p>}
                   </div>
+
+                  <button
+                    onClick={() => {
+                      onSendOut(item)
+                    }}
+                    defaultChecked={false}
+                  >Continue</button>
                 </div>
               </div>
             )
           })}
-
-
         </div>
       </div>
       <Background atOpenModal={atOpenModal} />

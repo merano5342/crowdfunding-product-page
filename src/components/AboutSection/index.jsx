@@ -11,7 +11,7 @@ const Reward = (props) => {
       <div
         key={item.id}
         className={style.aboutBox}
-        data-available={!!item.quality}>
+        data-available={!!item.quantity}>
         <div className={style.top}>
           <h3>{item.title}</h3>
           {item.minimum ? <h3 className={style.greenText}>Pledge ${item.minimum} or more </h3> : ''}
@@ -19,15 +19,15 @@ const Reward = (props) => {
         <p> {item.text} </p>
         <div className={style.bottom}>
           <div className={style.left}>
-            <h1>{item.quality}</h1>
+            <h1>{item.quantity}</h1>
             <p>left</p>
           </div>
           <button
             className={style.selectBtn}
-            data-active={!!item.quality}
+            data-active={!!item.quantity}
             onClick={() => onClick(item.idName)}
-            disabled={!item.quality}>
-            {item.quality ? "Select Reward" : "Out of Stock"}
+            disabled={!item.quantity}>
+            {item.quantity ? "Select Reward" : "Out of Stock"}
           </button>
         </div>
       </div>)

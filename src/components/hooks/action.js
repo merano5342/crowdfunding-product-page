@@ -17,3 +17,17 @@ export const actionSelectReward = (reward) => {
     payload: reward
   }
 }
+
+export const actionSuccessBack = (userBacked) => {
+  return {
+    type: 'SUCCESS_BACK',
+    payload: userBacked
+  }
+}
+
+export const actionUpdateQuantity = (itemIdName) => {
+  return {
+    type: 'UPDATE_QUANTITY',
+    payload: itemIdName
+  }
+}

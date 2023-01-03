@@ -6,16 +6,11 @@ import { useStateContext } from '../hooks/useContext'
 
 const ThankYouModal = () => {
   const {
-    state,
     atOpenModal
   } = useStateContext()
 
-  const { openModal } = state
-
-
   const scrollToTarget = (id) => {
     const target = document.querySelector(id);
-    // if (!target) return
     setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "center" }), 300);
   }
 
@@ -26,7 +21,6 @@ const ThankYouModal = () => {
   return (
     <>
       <div className={style.modalWrapper} >
-
         <div className={style.thankYouBox} id="thankYou">
           <img
             src={CompletedIcon} alt="Completed Icon"
@@ -42,7 +36,6 @@ const ThankYouModal = () => {
         </div>
         <Background atOpenModal={atOpenModal} />
       </div>
-
     </>
   )
 }

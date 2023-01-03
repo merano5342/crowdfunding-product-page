@@ -9,7 +9,8 @@ const initialState = {
 
   bookmark: false,
   openModal: '',
-  // , 'selectionModal', 'thanksModal'
+  selectedReward: '',
+  userBacked: 0,
 
   rewards: [
     {
@@ -17,7 +18,7 @@ const initialState = {
       idName: 'noReward',
       title: 'Pledge with no reward',
       minimum: 0,
-      quality: 'unlimited',
+      quantity: 'unlimited',
       text: "Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email."
     },
     {
@@ -25,7 +26,7 @@ const initialState = {
       idName: 'BambooStand',
       title: 'Bamboo Stand',
       minimum: 25,
-      quality: 103,
+      quantity: 103,
       text: "You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and you’ll be added to a special Backer member list.",
     },
     {
@@ -33,7 +34,7 @@ const initialState = {
       idName: 'BlackEditionStand',
       title: 'Black Edition Stand',
       minimum: 75,
-      quality: 64,
+      quantity: 64,
       text: "You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer member list. Shipping is included."
 
     },
@@ -42,14 +43,10 @@ const initialState = {
       idName: 'MahoganySpecialEdition',
       title: 'Mahogany Special Edition',
       minimum: 200,
-      quality: 0,
+      quantity: 0,
       text: "You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer member list. Shipping is included."
     }
-
-  ],
-  selectedReward: '',
-  userBacked: 0,
-
+  ]
 }
 
 export type State = {
@@ -63,9 +60,9 @@ export type State = {
 }
 
 
-const calcTotalBack = (totalBacked, userBacked) => {
-  return totalBacked + userBacked
-}
+// const calcTotalBack = (totalBacked, userBacked) => {
+//   return totalBacked + userBacked
+// }
 
 const backReducer = (state, action) => {
   switch (action.type) {
@@ -87,6 +84,29 @@ const backReducer = (state, action) => {
       return {
         ...state,
         selectedReward: reward
+      }
+    }
+    case 'SUCCESS_BACK': {
+      const userBacked = action.payload
+      return {
+        ...state,
+        totalBackers: (state.totalBackers + 1),
+        userBacked: userBacked,
+        totalBacked: state.totalBacked + userBacked
+      }
+    }
+    case 'UPDATE_QUANTITY': {
+      const itemIdName = action.payload
+      console.log(itemIdName)
+      const rewards = state.rewards.map((item) => {
+        if (item.idName === itemIdName) {
+          return { ...item, quantity: item.quantity - 1 };
+        }
+        return item;
+      });
+      return {
+        ...state,
+        rewards: rewards
       }
     }
   }
